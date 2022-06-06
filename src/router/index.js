@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import Register from '../views/Register.vue'
 import Login from '../views/Login.vue'
 import Dashboard from '../views/dashboard/Dashboard.vue'
+import MyAccount from '../views/dashboard/MyAccount.vue'
 
 const routes = [
   {
@@ -24,6 +25,11 @@ const routes = [
     path: '/dashboard',
     name: 'dashboard',
     component: Dashboard
+  },
+  {
+    path: '/dashboard/my-account',
+    name: 'my-account',
+    component: MyAccount
   },
   {
     path: '/about',
