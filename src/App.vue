@@ -10,6 +10,7 @@
 <script>
 import Navbar from '@/components/layout/Navbar'
 import axios from 'axios'
+
 export default {
   name: 'App',
   components: {
