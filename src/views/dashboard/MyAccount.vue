@@ -6,7 +6,7 @@
             </div>
 
             <div class="column is-12">
-                <button @click="logout()" class="button is-danger">Logout</button>
+                <button @click="logout" class="button is-danger">Logout</button>
             </div>
         </div>
     </div>

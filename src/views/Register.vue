@@ -56,7 +56,7 @@ export default{
         }
     },
     methods: {
-        submitForm() {
+        async submitForm() {
             this.errors = []
             if (this.username === '') {
                 this.errors.push('Missing username!')
@@ -68,31 +68,34 @@ export default{
                 this.errors.push('Passwords do not match!')
             }
             if (!this.errors.length) {
+                this.$store.commit('setIsLoading', true)
                 const formData = {
                     username: this.username,
                     password: this.password1,
                 }
-                axios.post('/api/users/', formData)
-                     .then(response => {
-                         toast({
-                             message: 'Account was created. Please Login.',
-                             type: 'is-success',
-                             dismissible: true,
-                             pauseOnHover: true,
-                             duration: 2000,
-                             position: 'bottom-right'
-                         })
-                         this.$router.push('/login')
-                     })
-                     .catch(error => {
-                         if (error.response) {
-                             for (const property in error.response.data) {
-                                 this.errors.push(`${property}:  ${error.response.data[property]}`)
-                             }
-                         } else if (error.message) {
-                             this.errors.push(`Somthing went wrong. ${error.message}`)
-                         }
-                     })
+                await axios
+                    .post('/api/users/', formData)
+                    .then(response => {
+                        toast({
+                            message: 'Account was created. Please Login.',
+                            type: 'is-success',
+                            dismissible: true,
+                            pauseOnHover: true,
+                            duration: 2000,
+                            position: 'bottom-right'
+                        })
+                        this.$router.push('/login')
+                    })
+                    .catch(error => {
+                        if (error.response) {
+                            for (const property in error.response.data) {
+                                this.errors.push(`${property}:  ${error.response.data[property]}`)
+                            }
+                        } else if (error.message) {
+                            this.errors.push(`Somthing went wrong. ${error.message}`)
+                        }
+                    })
+                this.$store.commit('setIsLoading', false)
             }
         }
     }
