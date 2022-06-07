@@ -48,7 +48,7 @@ export default{
         async getLeads() {
             this.$store.commit('setIsLoading', true)
 
-            axios
+            await axios
                 .get('/api/leads/')
                 .then(response => {
                     this.leads = response.data
