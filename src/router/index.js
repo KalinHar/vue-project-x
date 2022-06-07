@@ -8,6 +8,7 @@ import Dashboard from '../views/dashboard/Dashboard.vue'
 import MyAccount from '../views/dashboard/MyAccount.vue'
 import Leads from '../views/dashboard/Leads.vue'
 import AddLead from '../views/dashboard/AddLead.vue'
+import Lead from '../views/dashboard/Lead.vue'
 
 const routes = [
   {
@@ -53,6 +54,14 @@ const routes = [
     path: '/dashboard/leads/add',
     name: 'add-lead',
     component: AddLead,
+    meta: {
+      requireLogin: true,
+    }
+  },
+  {
+    path: '/dashboard/leads/:id',
+    name: 'lead',
+    component: Lead,
     meta: {
       requireLogin: true,
     }

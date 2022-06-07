@@ -13,6 +13,7 @@
                             <th>Company</th>
                             <th>Contact person</th>
                             <th>Satus</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -20,6 +21,9 @@
                             <td>{{ lead.company }}</td>
                             <td>{{ lead.contact_person }}</td>
                             <td>{{ lead.status }}</td>
+                            <td>
+                                <router-link :to="{ name: 'lead', params: {id: lead.id} }">Deatils</router-link>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
