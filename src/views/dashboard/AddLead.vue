@@ -97,6 +97,7 @@
 
 <script>
     import axios from 'axios'
+    import { toast } from 'bulma-toast'
 
     export default {
         name: 'AddLead',
@@ -132,7 +133,14 @@
                 await axios
                     .post('/api/leads/', lead)
                     .then(response => {
-                        console.log(response.data)
+                        toast({
+                            message: 'The lead was added',
+                            type: 'is-success',
+                            dismissible: true,
+                            pauseOnHover: true,
+                            duration: 2000,
+                            position: 'bottom-right',
+                        })
 
                         this.$router.push('/dashboard/leads')
                     })
