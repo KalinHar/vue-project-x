@@ -2,31 +2,25 @@
     <div class="container">
         <div class="columns is-multiline">
             <div class="column is-12">
-                <h1 class="title">Leads</h1>
-                <router-link to="/dashboard/leads/add">Add lead</router-link>
+                <h1 class="title">Clients</h1>
+                <router-link to="/dashboard/clients/add">Add client</router-link>
             </div>
 
             <div class="column is-12">
                 <table class="table is-fullwidth">
                     <thead>
                         <tr>
-                            <th>Company</th>
+                            <th>Name</th>
                             <th>Contact person</th>
-                            <th>Assigned to</th>
-                            <th>Satus</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="lead in leads" v-bind:key="lead.id">
-                            <td>{{ lead.company }}</td>
-                            <td>{{ lead.contact_person }}</td>
+                        <tr v-for="client in clients" v-bind:key="client.id">
+                            <td>{{ client.name }}</td>
+                            <td>{{ client.contact_person }}</td>
                             <td>
-                                <template v-if="lead.assigned_to">{{ lead.assigned_to.username }}</template>
-                            </td>
-                            <td>{{ lead.status }}</td>
-                            <td>
-                                <router-link :to="{ name: 'lead', params: {id: lead.id} }">Deatils</router-link>
+                                <router-link :to="{ name: 'client', params: {id: client.id} }">Deatils</router-link>
                             </td>
                         </tr>
                     </tbody>
@@ -40,23 +34,23 @@
 import axios from 'axios'
 
 export default{
-    name: 'Leads',
+    name: 'Clients',
     data() {
         return {
-            leads: []
+            clients: []
         }
     },
     mounted() {
-        this.getLeads()
+        this.getClients()
     },
     methods: {
-        async getLeads() {
+        async getClients() {
             this.$store.commit('setIsLoading', true)
 
             await axios
-                .get('/api/leads/')
+                .get('/api/clients/')
                 .then(response => {
-                    this.leads = response.data
+                    this.clients = response.data
                 })
                 .catch(error => {
                     console.log(error)
