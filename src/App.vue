@@ -15,6 +15,7 @@
 <script>
 import Navbar from '@/components/layout/Navbar'
 import axios from 'axios'
+import router from './router'
 
 export default {
   name: 'App',
@@ -28,6 +29,10 @@ export default {
       axios.defaults.headers.common['Authorization'] = "Token " + this.$store.state.token
     } else {
       axios.defaults.headers.common['Authorization'] = ""
+    }
+
+    if (!this.$store.state.team.id) {
+      this.$router.push('/dashboard/add-team')
     }
   },
 }
