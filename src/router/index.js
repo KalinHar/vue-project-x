@@ -19,6 +19,7 @@ import Client from '../views/dashboard/Client.vue'
 import EditClient from '../views/dashboard/EditClient.vue'
 import AddNote from '../views/dashboard/AddNote.vue'
 import EditNote from '../views/dashboard/EditNote.vue'
+import EditMember from '../views/dashboard/EditMember.vue'
 
 const routes = [
   {
@@ -48,6 +49,14 @@ const routes = [
     path: '/dashboard/my-account',
     name: 'my-account',
     component: MyAccount,
+    meta: {
+      requireLogin: true,
+    }
+  },
+  {
+    path: '/dashboard/edit-member/:id',
+    name: 'edit-member',
+    component: EditMember,
     meta: {
       requireLogin: true,
     }
