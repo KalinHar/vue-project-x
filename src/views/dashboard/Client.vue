@@ -33,7 +33,7 @@
             <div class="column is-12">
                 <h2 class="subtitle">Notes</h2>
 
-                <router-link :to="{ name: 'add-note', params: { pk: client.id }}" class="button is-success mb-6">Add note</router-link>
+                <router-link :to="{ name: 'add-note', params: { pk: client.id }}" class="button is-success mb-4">Add note</router-link>
 
                 <div
                     class="box"
@@ -45,6 +45,9 @@
                     <p>
                         {{ note.body }}
                     </p>
+
+                    <router-link :to="{ name: 'edit-note', params: { pk: client.id, note_id: note.id }}" class="button is-success mt-4">Edit note</router-link>
+
 
                 </div>
             </div>
