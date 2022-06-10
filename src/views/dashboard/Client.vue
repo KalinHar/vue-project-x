@@ -27,6 +27,14 @@
                     <p><strong>Website: </strong>{{ client.website }}</p>
                 </div>
             </div>
+
+            <hr>
+
+            <div class="column is-12">
+                <h2 class="subtitle">Notes</h2>
+
+                <router-link :to="{ name: 'add-note', params: { pk: client.id }}" class="button is-success mb-6">Add note</router-link>
+            </div>
         </div>
     </div>
 </template>
