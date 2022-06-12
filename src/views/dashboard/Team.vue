@@ -9,7 +9,10 @@
                 <p><strong>Plan: </strong>{{ $store.state.team.plan }}</p>
                 <p><strong>Max clients: </strong>{{ $store.state.team.max_clients }}</p>
                 <p><strong>Max leads: </strong>{{ $store.state.team.max_leads }}</p>
-                
+                <p>
+                    <router-link :to="{ 'name': 'plans'}" >Change Plan</router-link>
+                </p>
+
                 <hr>
 
                 <template v-if="team.created_by.id === parseInt($store.state.user.id)">
