@@ -89,22 +89,13 @@ export default{
             this.getLeads()
         },
         async getLeads() {
-            this.$store.commit('setIsLoading', true)
-
-            await axios
-                .get('/api/leads/')
-                .then(response => {
-                    this.num_leads = response.data.count
-                })
-                .catch(error => {
-                    console.log(error)
-                })
-           
+            this.$store.commit('setIsLoading', true)         
             
             await axios
                 .get(`/api/leads/?page=${this.currentPage}&search=${this.query}`)
                 .then(response => {
                     this.leads = response.data.results
+                    this.num_leads = response.data.count
 
                     this.showNextButton = response.data.next ? true : false
                     this.showPreviousButton = response.data.previous ? true : false
