@@ -5,10 +5,7 @@
                 <h1 class="title">Leads</h1>
                 <router-link to="/dashboard/leads/add" v-if="$store.state.team.max_leads > num_leads">Add lead</router-link>
                 
-                <div
-                    class="notification is-light is-warning"
-                    v-else
-                >
+                <div class="notification is-light is-warning" v-else>
                     You have reached the top of your Leads limitations. Please upgrade!
                 </div>
 
