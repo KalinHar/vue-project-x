@@ -53,8 +53,8 @@
                 </table>
 
                 <div class="buttons">
-                    <button class="button is-light" @click="goToPreviousPage()" v-if="showPreviousButton">Previous</button>
-                    <button class="button is-light" @click="goToNextPage()" v-if="showNextButton">Next</button>
+                    <button class="button is-light is-small" @click="goToPreviousPage()" v-if="showPreviousButton">Previous</button>
+                    <button class="button is-light is-small" @click="goToNextPage()" v-if="showNextButton">Next</button>
                 </div>
             </div>
         </div>
