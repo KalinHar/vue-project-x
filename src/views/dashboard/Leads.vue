@@ -3,7 +3,27 @@
         <div class="columns is-multiline">
             <div class="column is-12">
                 <h1 class="title">Leads</h1>
-                <router-link to="/dashboard/leads/add">Add lead</router-link>
+                <router-link to="/dashboard/leads/add" v-if="$store.state.team.max_leads > num_leads">Add lead</router-link>
+                
+                <div
+                    class="notification is-light is-warning"
+                    v-else
+                >
+                    You have reached the top of your Leads limitations. Please upgrade!
+                </div>
+
+                <hr>
+
+                <form @submit.prevent="getLeads">
+                    <div class="field has-addons">
+                        <div class="control">
+                            <input type="text" class="input" v-model="query">
+                        </div>
+                        <div class="control">
+                            <button class="button is-success">Search</button>
+                        </div>
+                    </div>
+                </form>
             </div>
 
             <div class="column is-12">
@@ -31,6 +51,11 @@
                         </tr>
                     </tbody>
                 </table>
+
+                <div class="buttons">
+                    <button class="button is-light" @click="goToPreviousPage()" v-if="showPreviousButton">Previous</button>
+                    <button class="button is-light" @click="goToNextPage()" v-if="showNextButton">Next</button>
+                </div>
             </div>
         </div>
     </div>
@@ -43,25 +68,50 @@ export default{
     name: 'Leads',
     data() {
         return {
-            leads: []
+            leads: [],
+            showNextButton: false,
+            showPreviousButton: false,
+            currentPage: 1,
+            query: '',
+            num_leads: 0
         }
     },
     mounted() {
         this.getLeads()
     },
     methods: {
+        goToNextPage() {
+                this.currentPage += 1
+                this.getLeads()
+        },
+        goToPreviousPage() {
+            this.currentPage -= 1
+            this.getLeads()
+        },
         async getLeads() {
             this.$store.commit('setIsLoading', true)
 
             await axios
                 .get('/api/leads/')
                 .then(response => {
-                    this.leads = response.data
+                    this.num_leads = response.data.count
                 })
                 .catch(error => {
                     console.log(error)
                 })
+           
+            
+            await axios
+                .get(`/api/leads/?page=${this.currentPage}&search=${this.query}`)
+                .then(response => {
+                    this.leads = response.data.results
 
+                    this.showNextButton = response.data.next ? true : false
+                    this.showPreviousButton = response.data.previous ? true : false
+                })
+                .catch(error => {
+                    console.log(error)
+                })
 
             this.$store.commit('setIsLoading', false)
         }
