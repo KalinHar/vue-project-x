@@ -81,29 +81,15 @@ export default {
             const data = {
                 plan: plan_type
             }
-            
+
             await axios
-                .post(`/api/teams/upgrade_plan/`, data)
+                .post('/api/stripe/create_checkout_session/', data)
                 .then(response => {
-                    this.$store.commit('setTeam', {
-                        'id': response.data.id, 
-                        'name': response.data.name,
-                        'plan': response.data.plan.name,
-                        'max_leads': response.data.plan.max_leads,
-                        'max_clients': response.data.plan.max_clients
-                    })
-                    toast({
-                        message: 'The plan was changed!',
-                        type: 'is-success',
-                        dismissible: true,
-                        pauseOnHover: true,
-                        duration: 2000,
-                        position: 'bottom-right',
-                    })
-                    this.$router.push('/dashboard/team')
+                    console.log(response)
+                    return this.stripe.redirectToCheckout({sessionId: response.data.sessionId})
                 })
                 .catch(error => {
-                    console.log(error)
+                    console.log('Error:', error)
                 })
 
             this.$store.commit('setIsLoading', true)
